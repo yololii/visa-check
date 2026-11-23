@@ -303,9 +303,44 @@ h1 .hi::after{content:"";position:absolute;left:-4%;right:-4%;bottom:.06em;heigh
 .gauge .ring{inset:38px}
 .gauge .num{font-size:58px}
 
+/* 入口订单号校验 */
+.gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;
+  background:radial-gradient(120% 80% at 50% 0%,#16202c 0%,#0B1014 55%,#06080A 100%);transition:opacity .26s ease}
+.gate.off{opacity:0;pointer-events:none}
+body.gated{overflow:hidden}
+.gcard{width:100%;max-width:340px;background:rgba(22,30,40,.72);border:1px solid rgba(255,255,255,.09);
+  border-radius:20px;padding:26px 22px 20px;text-align:center;backdrop-filter:blur(14px)}
+.gbadge{width:44px;height:44px;margin:0 auto 12px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:24px;font-weight:900;color:#241a00;background:linear-gradient(160deg,#FFE07A,#FFC24B);
+  box-shadow:0 6px 18px rgba(255,190,60,.28)}
+.gh1{font-size:19px;font-weight:900;color:#EAEFF7;letter-spacing:-.3px;margin:0}
+.gsub{font-size:12px;color:#8C99A9;margin:8px 0 18px;line-height:1.7}
+.ginput{width:100%;height:46px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);
+  color:#EAEFF7;font-size:15px;font-weight:700;letter-spacing:.4px;text-align:center;outline:none}
+.ginput::placeholder{color:#67717F;font-weight:500;letter-spacing:0}
+.ginput:focus{border-color:rgba(255,196,75,.55);box-shadow:0 0 0 3px rgba(255,196,75,.12)}
+.gerr{min-height:18px;font-size:12px;color:#FF7B7B;margin:8px 0 0}
+.gbtn{width:100%;height:46px;margin-top:6px;border:0;border-radius:12px;font-size:15px;font-weight:900;color:#241a00;
+  background:linear-gradient(160deg,#FFE07A,#FFC24B);box-shadow:0 8px 22px rgba(255,180,50,.25);cursor:pointer}
+.gbtn:active{transform:translateY(1px)}
+.gnote{font-size:11px;color:#6C7787;line-height:1.7;margin:14px 0 0}
+@keyframes gshake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.gcard.shake{animation:gshake .38s ease}
+
 </style>
 </head>
 <body>
+<div class="gate" id="gate">
+  <div class="gcard" id="gcard">
+    <div class="gbadge">过</div>
+    <h1 class="gh1">过签率 · 订单号验证</h1>
+    <p class="gsub">本页面仅向已购买的用户开放</p>
+    <input class="ginput" id="ginput" type="text" inputmode="text" autocomplete="off" spellcheck="false" maxlength="24" placeholder="P 开头的 19 位订单号">
+    <p class="gerr" id="gerr"></p>
+    <button class="gbtn" id="gbtn" type="button">验证并进入</button>
+    <p class="gnote">订单号见小红书「订单详情」页的「订单编号」，或发货短信里的「订单号」，格式为 P + 18 位数字。</p>
+  </div>
+</div>
 <main class="app">
 
   <!-- 首页 -->
@@ -1103,6 +1138,49 @@ function copyResult(pct, btn){
     }, ()=>alert(text));
   } else { alert(text); }
 }
+</script>
+<script>
+/* 入口订单号校验（纯前端，不联网） */
+(function(){
+  var KEY = "vc_gate_ok_v1";
+  var gate  = document.getElementById("gate");
+  var card  = document.getElementById("gcard");
+  var input = document.getElementById("ginput");
+  var err   = document.getElementById("gerr");
+  var btn   = document.getElementById("gbtn");
+  if(!gate) return;
+  var granted = false;
+  try { granted = localStorage.getItem(KEY) === "1"; } catch(e){}
+  if(granted){ gate.remove(); return; }
+  document.body.classList.add("gated");
+
+  function norm(v){
+    return (v || "").replace(/[\s\u200b-\u200d\ufeff]/g, "").toUpperCase();
+  }
+  function fail(msg){
+    err.textContent = msg;
+    card.classList.remove("shake");
+    void card.offsetWidth;
+    card.classList.add("shake");
+    input.focus();
+  }
+  function pass(){
+    try { localStorage.setItem(KEY, "1"); } catch(e){}
+    gate.classList.add("off");
+    document.body.classList.remove("gated");
+    setTimeout(function(){ if(gate.parentNode) gate.remove(); }, 280);
+  }
+  function check(){
+    var v = norm(input.value);
+    if(!v) return fail("请输入订单号");
+    if(!/^P\d{18}$/.test(v)) return fail("订单号格式不正确：P 开头，共 19 位");
+    pass();
+  }
+  btn.addEventListener("click", check);
+  input.addEventListener("keydown", function(e){ if(e.key === "Enter") check(); });
+  input.addEventListener("input", function(){ err.textContent = ""; });
+  setTimeout(function(){ input.focus(); }, 300);
+})();
 </script>
 </body>
 </html>
