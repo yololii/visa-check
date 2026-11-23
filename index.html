@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B12">
+<title>澳洲签证通过率测试</title>
+<style>
+:root{
+  --ink:#070B12;
+  --line:rgba(255,255,255,.09);
+  --text:#F3F6FA;
+  --muted:#8D99AB;
+  --gold:#FFC65C;
+  --green:#35D399;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.app{max-width:480px;margin:0 auto;min-height:100svh;position:relative;padding:0 22px;overflow:hidden}
+.app::before{content:"";position:fixed;inset:0;max-width:480px;margin:0 auto;pointer-events:none;
+  background:
+    radial-gradient(120% 55% at 50% -10%, rgba(255,198,92,.20), transparent 62%),
+    radial-gradient(90% 45% at 105% 22%, rgba(53,211,153,.13), transparent 60%),
+    linear-gradient(180deg,#0B1119 0%, #070B12 48%, #05080D 100%);
+  z-index:-1}
+.scale{animation:fade .45s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hidden{display:none!important}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 0 0}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;letter-spacing:.5px}
+.mark{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:16px;font-weight:900;font-family:inherit;
+  background:linear-gradient(135deg,#FFD27A,#F5A524);color:#2A1B00;box-shadow:0 6px 18px rgba(245,165,36,.32)}
+.pill{font-size:11px;font-weight:700;color:#FFD79B;border:1px solid rgba(255,198,92,.32);
+  background:rgba(255,198,92,.09);padding:6px 11px;border-radius:99px;letter-spacing:.4px}
+
+/* hero */
+.home{min-height:calc(100svh - 62px);display:flex;flex-direction:column;justify-content:flex-start;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:46px 0 4px}
+.kicker{font-size:10.5px;letter-spacing:.22em;font-weight:800;color:var(--gold);text-transform:uppercase}
+h1{margin:16px 0 0;font-size:clamp(39px,11.6vw,54px);line-height:1.12;font-weight:900;letter-spacing:-1.6px}
+h1 .hi{position:relative;display:inline-block;color:var(--gold);white-space:nowrap}
+h1 .hi::after{content:"";position:absolute;left:-4%;right:-4%;bottom:.06em;height:.30em;border-radius:4px;
+  background:linear-gradient(90deg,rgba(255,198,92,.32),rgba(245,165,36,.10));z-index:-1}
+.sub{margin:14px 0 0;font-size:13.5px;line-height:1.8;color:#B9C4D4;letter-spacing:.2px;max-width:330px}
+.art{position:relative;width:100%;max-width:288px;margin:52px auto 0;padding-bottom:30px}
+.flag{position:relative;width:100%;aspect-ratio:2/1;border-radius:13px;overflow:hidden;
+  transform:rotate(-5deg);border:2px solid #FFE7AE;
+  box-shadow:0 24px 52px rgba(0,0,0,.65),0 0 0 2px rgba(255,231,174,.16),0 0 22px rgba(255,214,130,.18)}
+.flag img{display:block;width:100%;height:100%;object-fit:contain;background:#00247D}
+.seal{position:absolute;right:-8px;bottom:2px;width:116px;height:116px;border-radius:50%;
+  background:linear-gradient(165deg,rgba(16,13,20,.86),rgba(16,13,20,.66));
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
+  border:2.5px solid rgba(240,96,88,.95);transform:rotate(-13deg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;
+  color:#FF9C93;box-shadow:0 16px 34px rgba(0,0,0,.62)}
+.seal::before{content:"";position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(255,123,114,.7)}
+.seal .q{font-size:74px;font-weight:900;line-height:1;position:relative;color:#FF8A7D;
+  text-shadow:0 0 22px rgba(240,96,88,.55),0 3px 16px rgba(0,0,0,.45)}
+.meta{margin:16px 0 0;font-size:11.5px;color:var(--muted);letter-spacing:.14em;font-weight:700}
+.meta em{font-style:normal;color:#DCE4EF;font-weight:800}
+.dims{margin:30px 0 0;padding:0;list-style:none;display:grid;gap:7px;width:100%;max-width:340px;text-align:left}
+.dims li{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#A7B3C4;line-height:1.6}
+.dims i{font-style:normal;color:var(--green);font-weight:900;flex:none}
+
+/* CTA */
+.cta-wrap{text-align:center;padding-top:48px}
+.hook{font-size:12px;color:#9FAAB9;margin:0 0 12px;line-height:1.7}
+.hook b{color:var(--gold);font-weight:800}
+.btn{
+  width:100%;border:0;border-radius:18px;height:66px;font-size:18px;font-weight:900;letter-spacing:.5px;
+  background:linear-gradient(135deg,#FFD27A 0%,#FFC65C 42%,#F59E19 100%);
+  color:#231500;cursor:pointer;box-shadow:0 16px 38px rgba(245,158,25,.36),0 2px 0 rgba(255,255,255,.45) inset;
+  display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;
+  transition:transform .12s ease, box-shadow .2s ease;
+}
+.btn:active{transform:scale(.985);box-shadow:0 8px 20px rgba(245,158,25,.3)}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);
+  animation:sheen 3.4s ease-in-out infinite}
+@keyframes sheen{0%{left:-60%}55%{left:130%}100%{left:130%}}
+.ghost{width:100%;height:54px;margin-top:10px;border-radius:15px;background:transparent;color:#C8D2DF;
+  border:1px solid var(--line);font-size:14px;font-weight:700;cursor:pointer}
+.fine{font-size:10.5px;color:#75808F;line-height:1.75;margin:13px 6px 0}
+
+/* quiz */
+#quiz{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.qbar{display:flex;justify-content:space-between;font-size:10.5px;color:var(--muted);letter-spacing:.12em;font-weight:800;padding-top:18px}
+.prog{height:4px;border-radius:99px;background:rgba(255,255,255,.10);margin:11px 0 30px;overflow:hidden}
+.prog i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#35D399,#FFC65C);transition:width .35s cubic-bezier(.3,.9,.2,1)}
+.qidx{font-size:11px;color:var(--gold);font-weight:800;letter-spacing:.14em}
+.qt{font-size:26px;line-height:1.36;font-weight:900;letter-spacing:-.8px;margin:12px 0 10px}
+.qh{font-size:12.5px;color:var(--muted);line-height:1.85;margin:0 0 22px}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.045);
+  border-radius:15px;padding:14px 15px;display:flex;align-items:center;gap:12px;color:var(--text);
+  font-size:14px;font-weight:700;cursor:pointer;transition:border-color .18s,background .18s,transform .1s}
+.opt:active{transform:scale(.99)}
+.opt .e{width:38px;height:38px;flex:none;border-radius:11px;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:18px}
+.opt .tx{flex:1;min-width:0}
+.opt small{display:block;font-size:11px;font-weight:500;color:var(--muted);margin-top:4px;line-height:1.55}
+.opt.sel{border-color:rgba(255,198,92,.85);background:rgba(255,198,92,.13);box-shadow:0 0 0 1px rgba(255,198,92,.5),0 8px 22px rgba(0,0,0,.3)}
+.opt.sel .e{background:rgba(255,198,92,.22)}
+.qnav{display:flex;gap:10px;margin-top:24px}
+.back{width:60px;flex:none;height:60px;border-radius:15px;background:transparent;border:1px solid var(--line);
+  color:#CBD5E1;font-size:18px;cursor:pointer}
+.qnav .btn{height:60px;font-size:15.5px}
+.btn-hero{height:82px;font-size:30px;font-weight:900;letter-spacing:6px;border-radius:22px}
+.btn[disabled]{opacity:.38;cursor:not-allowed;box-shadow:none}
+.btn[disabled]::after{display:none}
+
+/* result */
+#report{padding-bottom:calc(26px + env(safe-area-inset-bottom))}
+.rhead{text-align:center;padding-top:24px}
+.rhead .kicker{color:var(--green)}
+.ring{width:210px;height:210px;margin:22px auto 0;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:conic-gradient(from -90deg, var(--gold) 0deg, var(--gold) 0deg, rgba(255,255,255,.07) 0deg);
+  box-shadow:0 0 60px rgba(255,198,92,.22)}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:#0A0F17}
+.ring .in{position:relative;text-align:center}
+.ring .num{font-size:56px;font-weight:900;letter-spacing:-2px;line-height:1}
+.ring .num span{font-size:19px;font-weight:800;color:var(--muted)}
+.ring .lbl{font-size:11px;letter-spacing:.2em;color:var(--muted);margin-top:8px;font-weight:800}
+.verdict{font-size:20px;font-weight:900;margin:22px 0 0;letter-spacing:-.4px;text-align:center;line-height:1.5}
+.vsub{font-size:13px;color:#A8B4C4;line-height:1.85;margin:10px auto 0;max-width:330px;text-align:center}
+.card{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:16px;padding:17px;margin-top:16px}
+.card h3{margin:0 0 14px;font-size:13px;letter-spacing:.06em;font-weight:800;display:flex;align-items:center;gap:7px}
+.bars{display:grid;gap:13px}
+.brow{display:grid;grid-template-columns:88px 1fr 34px;align-items:center;gap:10px;font-size:11.5px;color:#B9C4D4}
+.track{height:7px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#35D399,#8CE0B9);transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.brow strong{text-align:right;font-size:12px;color:#E8EEF6}
+.advs{display:grid;gap:13px}
+.adv{display:flex;gap:11px}
+.adv em{flex:none;width:26px;height:26px;border-radius:9px;background:rgba(255,198,92,.16);display:grid;place-items:center;font-style:normal;font-size:13px}
+.adv b{display:block;font-size:12.5px;margin-bottom:4px}
+.adv p{margin:0;font-size:11.5px;line-height:1.75;color:var(--muted)}
+.warn{border-color:rgba(255,107,107,.30);background:rgba(255,107,107,.08)}
+.warn h3{color:#FF9A9A}
+.share{display:flex;gap:10px;margin-top:18px}
+.share .btn{height:58px;font-size:15.5px}
+.share .ghost{margin:0;width:auto;flex:none;padding:0 18px;height:58px}
+.disclaim{background:rgba(255,198,92,.07);border:1px solid rgba(255,198,92,.22);border-radius:14px;padding:13px 14px;
+  font-size:10.5px;line-height:1.8;color:#CBB98F;margin-top:16px}
+.foot{text-align:center;font-size:10px;color:#5F6B7C;margin-top:22px;letter-spacing:.08em}
+
+/* result v2 */
+.rtitle{padding-top:20px;text-align:center}
+.rtitle-label{font-size:18px;font-weight:800;color:#C6D2E1;letter-spacing:.6px;
+  display:flex;align-items:center;justify-content:center;gap:7px}
+.rtitle-label img{width:30px;height:15px;border-radius:3px;display:block;
+  box-shadow:0 2px 9px rgba(0,0,0,.55);outline:2px solid #FFE7AE}
+.rtitle-num{margin-top:8px;font-size:clamp(62px,18vw,84px);line-height:.96;font-weight:900;letter-spacing:-3px}
+.rtitle-num span{font-size:.40em;font-weight:800;margin-left:1px;letter-spacing:0}
+.peerbox{margin-top:18px;text-align:center}
+.peerline{font-size:13px;color:#AEB9C9;line-height:1.7}
+.peerline b{color:var(--gold);font-size:21px;font-weight:900;margin:0 2px}
+.peerbar{position:relative;height:9px;border-radius:99px;background:rgba(255,255,255,.09);margin:13px 0 0;overflow:hidden}
+.peerbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#FFD27A,#F59E19);transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.peermark{position:absolute;top:-3px;width:3px;height:15px;border-radius:2px;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.7);transition:left 1s cubic-bezier(.2,.8,.2,1)}
+.radar{width:100%;display:block;margin:2px 0 -6px}
+
+/* gauge + risk */
+.gauge{position:relative;width:244px;height:244px;margin:26px auto 0}
+.gauge .ring{position:absolute;inset:30px;width:auto;height:auto;margin:0}
+.gauge .ring::before{inset:8px}
+.gauge .num{font-size:62px;letter-spacing:-2px}
+.gauge .num span{font-size:20px}
+.gauge .lbl{font-size:10px;letter-spacing:.18em}
+.zlab{position:absolute;transform:translate(-50%,-50%);font-size:9.5px;font-weight:800;
+  letter-spacing:.04em;white-space:nowrap;opacity:.30}
+.zlab.on{opacity:1;font-size:19px;font-weight:900;letter-spacing:0;text-shadow:0 0 18px currentColor,0 2px 10px rgba(0,0,0,.6)}
+.lv{font-style:normal;font-size:9.5px;font-weight:900;padding:2px 6px;border-radius:6px;
+  border:1px solid currentColor;margin-left:7px;vertical-align:1px;letter-spacing:.02em}
+
+/* result v3 */
+.rtitle-k{font-size:12px;letter-spacing:.22em;font-weight:800;color:var(--muted)}
+.rtitle-label{font-size:clamp(33px,10.6vw,48px);font-weight:900;letter-spacing:-1px;color:#EAEFF7;gap:9px}
+.rtitle-label img{width:42px;height:21px;border-radius:4px}
+.radar{max-width:300px;margin:10px auto 0;display:block}
+.rlegend{display:flex;justify-content:center;gap:16px;margin:8px 0 2px;font-size:10.5px;color:#8FA0B6}
+.rlegend span{display:flex;align-items:center}
+.rlegend i{display:inline-block;width:16px;margin-right:5px}
+.lsolid{border-top:2px solid #FFC65C}
+.ldash{border-top:1.5px dashed rgba(160,176,198,.9)}
+/* 优势项 */
+.procard{border:1px solid rgba(53,211,153,.26);background:rgba(53,211,153,.055);border-radius:16px;padding:16px 16px 14px;margin-top:16px}
+.prohead{display:flex;align-items:center;gap:11px}
+.proico{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:19px;font-weight:900;
+  color:#08301F;background:linear-gradient(140deg,#7BE8B6,#2EC98C);box-shadow:0 8px 22px rgba(53,211,153,.30)}
+.prohead h3{margin:0;font-size:16px;font-weight:900;letter-spacing:-.2px;color:#E6F7EE}
+.prohead h3 b{color:#35D399;font-size:20px;margin:0 3px}
+.prohead p{margin:5px 0 0;font-size:11px;color:var(--muted);line-height:1.6}
+.probox{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.pch{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#CFEBDD;
+  border:1px solid rgba(53,211,153,.25);background:rgba(53,211,153,.10);padding:7px 10px;border-radius:99px}
+.pch i{font-style:normal;color:#35D399;font-weight:900;font-size:11px}
+.acc-rowhead{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 0 2px}
+.acc-body{display:none}
+.acc.open .acc-body{display:block}
+.acc-head,.acc-rowhead{cursor:pointer;user-select:none}
+.acc .card h3, .acc-rowhead h3{margin:0}
+.chev{flex:none;margin-left:8px;font-size:11px;font-weight:900;color:#8FA0B6;transition:transform .22s;line-height:1}
+.acc.open .chev{transform:rotate(180deg)}
+.lettercard{border:1px solid rgba(255,198,92,.24);background:rgba(255,198,92,.05);border-radius:16px;padding:16px;margin-top:16px}
+.lettercard.ok{border-color:rgba(53,211,153,.24);background:rgba(53,211,153,.05)}
+.lhead{display:flex;align-items:center;gap:8px;margin:0 0 8px}
+.lhead h3{font-size:14px;font-weight:900;color:#F4E3C6;margin:0;flex:1;letter-spacing:.02em}
+.len{flex:none;font-size:9.5px;font-weight:800;letter-spacing:.09em;color:#8FA0B6;text-transform:lowercase}
+.lchip{flex:none;font-size:10.5px;font-weight:900;padding:4px 9px;border-radius:8px}
+.lchip.need{color:#FFC65C;background:rgba(255,198,92,.16)}
+.lchip.no{color:#7FE3B9;background:rgba(53,211,153,.13)}
+.lsub{font-size:11.5px;color:#A7B3C4;line-height:1.75;margin:0 0 10px}
+.llist{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.llist li{background:rgba(255,255,255,.045);border-radius:11px;padding:10px 12px}
+.llist b{display:block;font-size:12.5px;color:#F5EDE0;font-weight:900;margin-bottom:4px}
+.llist span{font-size:11px;color:#A7B3C4;line-height:1.7}
+.lmore{font-size:10.5px;color:#8FA0B6;margin:9px 0 0}
+.riskcard{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:16px;padding:18px 16px 8px;margin-top:16px}
+.riskhead{display:flex;align-items:center;gap:12px;padding-bottom:15px;border-bottom:1px solid rgba(255,255,255,.07)}
+.riskicon{width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:900;color:#fff;
+  background:linear-gradient(140deg,#FF7A7A,#D93B3B);box-shadow:0 8px 22px rgba(217,59,59,.42)}
+.riskhead h3{margin:0;font-size:16.5px;font-weight:900;letter-spacing:-.2px}
+.riskhead h3 b{color:#FF6B6B;font-size:21px;margin:0 3px}
+.riskhead p{margin:5px 0 0;font-size:11px;color:var(--muted);line-height:1.6}
+.riskcta{margin-left:auto;flex:none;font-size:10.5px;font-weight:900;color:#FF9A9A;
+  background:rgba(255,107,107,.13);border:1px solid rgba(255,107,107,.32);padding:7px 11px;border-radius:99px}
+.risksec{font-size:12.5px;font-weight:900;color:#D8E2EF;margin:16px 0 2px}
+.rk{display:flex;gap:12px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.rk:last-child{border-bottom:0;padding-bottom:8px}
+.rkico{width:42px;height:42px;flex:none;border-radius:12px;background:rgba(255,255,255,.07);display:grid;place-items:center;font-size:18px}
+.rkbody{flex:1;min-width:0}
+.rkrow{display:flex;align-items:center;gap:8px}
+.rkrow b{flex:1;font-size:13px;font-weight:800;line-height:1.45}
+.rkact{flex:none;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:8px;
+  color:#FF9A9A;background:rgba(255,107,107,.12)}
+.rkact.ok{color:#7FE3B9;background:rgba(53,211,153,.13)}
+.rkact.t{color:#8FD3FF;background:rgba(143,211,255,.14)}
+.rkact.g{color:#FFC65C;background:rgba(255,198,92,.14)}
+.rktag{display:inline-block;margin-top:7px;font-size:9.5px;font-weight:900;padding:2px 8px;border-radius:6px;letter-spacing:.03em}
+.rktag.h{color:#FF7A7A;background:rgba(255,107,107,.16)}
+.rktag.m{color:#FFC65C;background:rgba(255,198,92,.15)}
+.rktag.l{color:#4FE0AC;background:rgba(53,211,153,.15)}
+.rkbody p{margin:8px 0 0;font-size:11.5px;line-height:1.85;color:var(--muted)}
+
+
+
+
+
+/* 结果页四模块：共用同一个头部组件，图标/标题/箭头位置结构上一致 */
+.acc{padding:0 !important}
+.acc > .acc-body{padding:0 16px 16px}
+.acc .acch{min-height:66px;padding:0 16px;display:flex;align-items:center;gap:12px;box-sizing:border-box;
+  cursor:pointer;user-select:none}
+.acc .acico{width:36px;height:36px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:21px;font-weight:900;line-height:1;letter-spacing:0}
+.acc .acico.ok{color:#08301F;background:linear-gradient(140deg,#7BE8B6,#2EC98C);box-shadow:0 8px 22px rgba(53,211,153,.28)}
+.acc .acico.rk{color:#fff;background:linear-gradient(140deg,#FF7A7A,#D93B3B);box-shadow:0 8px 22px rgba(217,59,59,.36)}
+.acc .acico.lc{color:#3B2A08;background:linear-gradient(140deg,#FFDF9E,#F0B94B);box-shadow:0 8px 22px rgba(240,185,75,.26)}
+.acc .acico.rd{color:#0B2340;background:linear-gradient(140deg,#AECBFF,#5B8DEF);box-shadow:0 8px 22px rgba(91,141,239,.26)}
+.acc .acch h3{flex:1;min-width:0;margin:0;font-size:16px;font-weight:900;letter-spacing:-.2px;line-height:1.35;color:#E9F2FA}
+.acc .acch h3 b{font-size:19px;margin:0 3px}
+.acc .acch .len{flex:none}
+.acc .acch .lchip{flex:none}
+.acc .acch .riskcta{flex:none;margin:0}
+.acc .acch .chev{margin:0;flex:none;width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;line-height:1;
+  color:#CBD8E8;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  transition:transform .22s,background .22s}
+.acc.open .acch .chev{transform:rotate(180deg)}
+.acc .accsub{margin:0 0 12px;font-size:11.5px;color:var(--muted);line-height:1.7}
+
+
+/* 标题里的数字重新高亮 */
+.acc .procard .acch h3 b{color:#35D399}
+.acc .riskcard .acch h3 b{color:#FF6B6B}
+/* 环上档位词放大 + 百分号提亮 */
+.gauge .zlab.on{font-size:22.5px;font-weight:900}
+.gauge .zlab{font-size:10px}
+.gauge .num span{font-size:21px;font-weight:800;color:#D9E6F6;margin-left:3px}
+
+
+/* 结果页大标题：您的 + 国旗 + 签证通过率，一行 */
+.rtitle-one{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap}
+.rtitle-k{font-size:clamp(28px,8vw,36px);font-weight:900;color:#EAEFF7;letter-spacing:-.6px;flex:none;line-height:1.1}
+.rtitle-flag{width:40px;height:20px;border-radius:4px;flex:none;object-fit:cover}
+.rtitle-label{font-size:clamp(28px,8vw,36px);font-weight:900;letter-spacing:-.6px;line-height:1.1;white-space:nowrap}
+
+
+/* 风险卡警灯图标 / 转盘其余档位词提亮 */
+.acc .acico.rk{font-size:20px}
+.gauge .zlab{font-size:11px;opacity:.42}
+.gauge .zlab.on{font-size:22.5px;font-weight:900;opacity:1;
+  text-shadow:0 0 16px currentColor,0 0 32px currentColor,0 2px 10px rgba(0,0,0,.65)}
+.gauge .ring{inset:38px}
+.gauge .num{font-size:58px}
+
+</style>
+</head>
+<body>
+<main class="app">
+
+  <!-- 首页 -->
+  <section id="home" class="scale">
+    <div class="top">
+      <div class="brand"><span class="mark">过</span>过签率</div>
+      <span class="pill">22 题 · 5 分钟</span>
+    </div>
+
+    <div class="home">
+      <div class="hero">
+        <h1>澳洲签证<br><span class="hi">通过率</span>测试</h1>
+
+        <div class="art" aria-hidden="true">
+          <div class="flag"><img alt="澳大利亚国旗" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHdpZHRoPSIxMjgwIiBoZWlnaHQ9IjY0MCIgdmlld0JveD0iMCAwIDEwMDgwIDUwNDAiPjxkZWZzPjxjbGlwUGF0aCBpZD0iYzEiPjxwYXRoIGQ9Ik0wLDBINlYzSDB6Ii8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9ImMyIj48cGF0aCBkPSJNMCwwVjEuNUg2VjNINnpNNiwwSDNWM0gwVjN6Ii8+PC9jbGlwUGF0aD48cGF0aCBpZD0iU3RhcjciIGQ9Ik0wLC0zNjAgNjkuNDIxMzk4LC0xNDQuMTU1MDE5IDI4MS40NTkzMzQsLTIyNC40NTYzMjkgMTU1Ljk4ODQ2NiwtMzUuNjAzMzQ5IDM1MC45NzQwNDgsODAuMTA3NTM2IDEyNS4wOTMwMzcsOTkuNzU4MzY4IDE1Ni4xOTgxNDYsMzI0LjM0ODc5MiAwLDE2MCAtMTU2LjE5ODE0NiwzMjQuMzQ4NzkyIC0xMjUuMDkzMDM3LDk5Ljc1ODM2OCAtMzUwLjk3NDA0OCw4MC4xMDc1MzYgLTE1NS45ODg0NjYsLTM1LjYwMzM0OSAtMjgxLjQ1OTMzNCwtMjI0LjQ1NjMyOSAtNjkuNDIxMzk4LC0xNDQuMTU1MDE5eiIvPjxwYXRoIGlkPSJTdGFyNSIgZD0iTTAsLTIxMCA1NC44NTk5NTcsLTc1LjUwODI1MyAxOTkuNzIxODY4LC02NC44OTM1NjkgODguNzY1Mjc1LDI4Ljg0MTU4NiAxMjMuNDM0OTAzLDE2OS44OTM1NjkgMCw5My4zMzMzMzMgLTEyMy40MzQ5MDMsMTY5Ljg5MzU2OSAtODguNzY1Mjc1LDI4Ljg0MTU4NiAtMTk5LjcyMTg2OCwtNjQuODkzNTY5IC01NC44NTk5NTcsLTc1LjUwODI1M3oiLz48L2RlZnM+PGcgdHJhbnNmb3JtPSJzY2FsZSg4NDApIj48cmVjdCB3aWR0aD0iMTIiIGhlaWdodD0iNiIgZmlsbD0iIzAxMjE2OSIvPjxwYXRoIGQ9Ik0wLDAgNiwzTTYsMCAwLDMiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjYiIGNsaXAtcGF0aD0idXJsKCNjMSkiLz48cGF0aCBkPSJNMCwwIDYsM002LDAgMCwzIiBzdHJva2U9IiNlNDAwMmIiIHN0cm9rZS13aWR0aD0iMC40IiBjbGlwLXBhdGg9InVybCgjYzIpIi8+PHBhdGggZD0iTTMsMFYzTTAsMS41SDYiIHN0cm9rZT0iI2ZmZiIvPjxwYXRoIGQ9Ik0zLDBWM00wLDEuNUg2IiBzdHJva2U9IiNlNDAwMmIiIHN0cm9rZS13aWR0aD0iMC42Ii8+PC9nPjxnIGZpbGw9IiNmZmYiPjx1c2UgaWQ9IkNvbXdsdGgiIHhsaW5rOmhyZWY9IiNTdGFyNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjUyMCwgMzc4MCkgc2NhbGUoMi4xKSIvPjx1c2UgaWQ9Is6xQ3J1Y2lzIiB4bGluazpocmVmPSIjU3RhcjciIHg9Ijc1NjAiIHk9IjQyMDAiLz48dXNlIGlkPSLOskNydWNpcyIgeGxpbms6aHJlZj0iI1N0YXI3IiB4PSI2MzAwIiB5PSIyMjA1Ii8+PHVzZSBpZD0izrNDcnVjaXMiIHhsaW5rOmhyZWY9IiNTdGFyNyIgeD0iNzU2MCIgeT0iODQwIi8+PHVzZSBpZD0izrRDcnVjaXMiIHhsaW5rOmhyZWY9IiNTdGFyNyIgeD0iODY4MCIgeT0iMTg2OSIvPjx1c2UgaWQ9Is61Q3J1Y2lzIiB4bGluazpocmVmPSIjU3RhcjUiIHg9IjgwNjQiIHk9IjI3MzAiLz48L2c+PC9zdmc+"></div>
+          <div class="seal"><span class="q">?</span></div>
+        </div>
+
+
+        <ul class="dims">
+          <li><i>✓</i>在职真实性 &amp; 收入来源</li>
+          <li><i>✓</i>资产结构 &amp; 回国约束力</li>
+          <li><i>✓</i>出入境记录 &amp; 拒签史</li>
+        </ul>
+      </div>
+
+      <div class="cta-wrap">
+        <button class="btn btn-hero" onclick="begin()">立即评估</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 答题 -->
+  <section id="quiz" class="hidden">
+    <div class="top">
+      <div class="brand"><span class="mark">过</span>过签率</div>
+      <span class="pill" id="quizpill">评估中</span>
+    </div>
+    <div class="qbar"><span class="qidx" id="qidx">Q1 / 22</span><span id="qcat">基本情况</span></div>
+    <div class="prog"><i id="prog" style="width:8%"></i></div>
+    <h2 class="qt" id="qt"></h2>
+    <div class="opts" id="opts"></div>
+    <div class="qnav">
+      <button class="back" onclick="prev()" aria-label="上一题">←</button>
+      <button class="btn" id="nextBtn" onclick="next()" disabled>下一题　→</button>
+    </div>
+    <p class="fine">请按真实情况选择。所有内容只在你本机的浏览器里计算，不会上传。</p>
+  </section>
+
+  <!-- 结果 -->
+  <section id="report" class="hidden"></section>
+</main>
+
+<script>
+/* 题库：按澳洲 600 访客签证的真实审理逻辑设计。s = 得分系数 0~1，w = 权重 */
+const QUESTIONS = [
+  { cat:"年龄", w:4,
+    t:"你的年龄？",
+    h:"年龄对应的是事业与生活的积累程度。",
+    o:[
+      {e:"🧑", l:"18–24 岁", d:"刚起步，靠家庭材料支撑", s:.55},
+      {e:"🧑‍💼", l:"25–32 岁", d:"事业起步期，资产偏少", s:.75},
+      {e:"👔", l:"33–45 岁", d:"事业与家庭最稳定的阶段", s:1},
+      {e:"🏛", l:"46–55 岁", d:"积累较厚，但需说明事业安排", s:.9},
+      {e:"🧓", l:"56–64 岁", d:"临近退休，看退休金与家庭", s:.8},
+      {e:"👴", l:"65–74 岁", d:"以退休金和资产为主", s:.7},
+      {e:"🦳", l:"75 岁及以上", d:"体检与保险要求更严", s:.55}
+    ]},
+  { cat:"婚姻", w:5,
+    t:"你的婚姻状况？",
+    h:"婚姻状况影响的是：你在这边有没有必须维系的生活结构。",
+    o:[
+      {e:"💍", l:"已婚", d:"家庭结构稳定", s:1},
+      {e:"🧍", l:"未婚", d:"少了配偶这一层约束", s:.6},
+      {e:"📄", l:"离异", d:"需说明目前的家庭与收入安排", s:.75}
+    ]},
+  { cat:"子女", w:5,
+    t:"你有子女吗？",
+    h:"有未成年子女，是「必须回去」最具体的一条。",
+    o:[
+      {e:"👶", l:"有未成年子女", d:"回国理由最具体", s:1},
+      {e:"👨‍👩‍👦", l:"子女已成年", d:"牵挂较弱，生活稳定", s:.9},
+      {e:"➖", l:"暂无子女", d:"少了一层约束", s:.8}
+    ]},
+  { cat:"身份", w:9,
+    t:"你现在是什么身份？",
+    h:"这一题决定「回去上班」这条理由站不站得住。",
+    o:[
+      {e:"🏢", l:"受雇在职", d:"有单位、有返岗日期", s:1},
+      {e:"🏛", l:"企业主，公司正常纳税", d:"经营本身就是约束", s:.9},
+      {e:"🧑‍🌾", l:"退休，有退休金", d:"收入稳定，时间自由", s:.8},
+      {e:"🧑‍💻", l:"自雇 / 个体经营", d:"靠经营流水与完税证明", s:.75},
+      {e:"📚", l:"在读学生", d:"学业未完成，回国时间点明确", s:.88},
+      {e:"🛋", l:"全职家庭 / 目前无业", d:"没有在职约束", s:.4}
+    ]},
+  { cat:"月收入", w:9,
+    t:"你的月收入大概是多少？",
+    h:"收入水平要和这趟行程的花费对得上。",
+    o:[
+      {e:"💰", l:"3 万元以上", d:"覆盖行程绰绰有余", s:1},
+      {e:"💵", l:"1.5–3 万元", d:"比较宽裕", s:.9},
+      {e:"💳", l:"8 千–1.5 万元", d:"正常水平，够用", s:.75},
+      {e:"🧾", l:"5 千–8 千元", d:"偏紧，需存款补足", s:.6},
+      {e:"⚠️", l:"5 千元以下", d:"难以覆盖两三周行程", s:.4},
+      {e:"🎒", l:"没有固定收入（学生、家庭）", d:"靠家人或积蓄", s:.45}
+    ]},
+  { cat:"工资发放", w:7,
+    t:"你的工资是怎么发的？",
+    h:"发放方式决定流水能不能被采信。",
+    o:[
+      {e:"🏦", l:"公账打卡，有工资条和个税", d:"最完整的证明链", s:1},
+      {e:"📄", l:"公账打卡，没有报个税", d:"基本可信，缺一环", s:.75},
+      {e:"💸", l:"私人账户代发", d:"流水上只是个人转账", s:.5},
+      {e:"📱", l:"微信 / 支付宝发放", d:"来源难证明", s:.35},
+      {e:"💵", l:"现金发放", d:"银行流水里看不到", s:.2},
+      {e:"➖", l:"不适用（学生、家庭、没有工资）", d:"本题不计分", s:null}
+    ]},
+  { cat:"在职真实性", w:8,
+    t:"你的工作关系属于哪种？",
+    h:"挂靠开出来的证明，社保一查就对不上。",
+    o:[
+      {e:"✅", l:"受雇在职，社保和工资都走公账", d:"经得起核对", s:1},
+      {e:"📎", l:"受雇在职，社保或工资走现金", d:"是真的，缺凭证", s:.6},
+      {e:"🧑‍💻", l:"自由职业 / 接项目，没有固定雇主", d:"收入靠合同与结算记录", s:.7},
+      {e:"🕓", l:"已离职，证明是后补的", d:"时间线会对不上", s:.2},
+      {e:"🪢", l:"挂靠在朋友或中介的公司", d:"材料不实，后果更重", s:.1}
+    ]},
+  { cat:"资产", w:8,
+    t:"你名下有哪些资产？",
+    h:"房、车、存款、理财，都是「会回来」的实物证据。",
+    o:[
+      {e:"🏘", l:"房、车、存款或理财都有", d:"资产结构完整", s:1},
+      {e:"🏠", l:"有房，没有车", d:"房产是最硬的约束", s:.9},
+      {e:"🚗", l:"无房，有车和存款", d:"有一定积累", s:.8},
+      {e:"🏦", l:"只有存款", d:"流动性资产，易被动用", s:.6},
+      {e:"🤝", l:"基本没有，靠家人支持", d:"资金只能算在别人名下", s:.3}
+    ]},
+  { cat:"资金能力", w:9,
+    t:"你名下存款能覆盖这趟行程吗？",
+    h:"余额要能撑起机票、住宿和日常开销。",
+    o:[
+      {e:"💰", l:"能覆盖，余额还有富余", d:"资金不是问题", s:1},
+      {e:"💳", l:"刚好够用", d:"需要预算表说明", s:.7},
+      {e:"🤝", l:"不足，靠家人出资", d:"需出资说明与关系证明", s:.45},
+      {e:"⚠️", l:"临时存入一大笔", d:"容易被识别为凑数", s:.15}
+    ]},
+  { cat:"出行目的", w:6,
+    t:"这趟去澳洲，最主要是为了什么？",
+    h:"签证官第一个问题：你去干嘛，理由够不够具体。",
+    o:[
+      {e:"🏖", l:"纯旅游度假", d:"看风景、走一圈就回", s:1},
+      {e:"👨‍👩‍👧", l:"探亲访友", d:"有亲友在澳，有邀请", s:.85},
+      {e:"💼", l:"商务考察", d:"开会、见客户、看展", s:.8},
+      {e:"🌏", l:"随便转转 / 还没想好", d:"先过去再说", s:.15}
+    ]},
+  { cat:"行程计划", w:6,
+    t:"你打算在澳洲待多久？",
+    h:"停留时长要和假期、预算、身份匹配。超长 = 高危。",
+    o:[
+      {e:"🗓", l:"2 周以内", d:"典型假期长度", s:1},
+      {e:"🗓", l:"2–4 周", d:"假期充足，合理", s:.9},
+      {e:"📆", l:"1–3 个月", d:"需要更强的解释", s:.45},
+      {e:"⏳", l:"3 个月以上", d:"必须给出充分理由", s:.1}
+    ]},
+  { cat:"行程计划", w:5,
+    t:"行程和机酒，你准备到什么程度？",
+    h:"说不出住哪、去哪，是最容易被追问的漏洞。",
+    o:[
+      {e:"✅", l:"机票、酒店、每日行程都定好了", d:"和申请材料完全对得上", s:1},
+      {e:"✈️", l:"机票订了，行程大概有计划", d:"细节还不够", s:.7},
+      {e:"💭", l:"只有大致想法，还没订", d:"还停留在想法阶段", s:.5},
+      {e:"❓", l:"还没具体安排", d:"边走边看", s:.2}
+    ]},
+  { cat:"同行人", w:5,
+    t:"这次谁和你一起去？",
+    h:"有人同行，行程动机更容易自洽。",
+    o:[
+      {e:"💑", l:"和配偶或伴侣", d:"两人行程，动机自然", s:1},
+      {e:"👨‍👩‍👧", l:"和孩子", d:"家庭出行，理由清楚", s:.95},
+      {e:"👴", l:"和父母", d:"照顾长辈，行程清楚", s:.9},
+      {e:"🚌", l:"跟团", d:"行程由旅行社安排", s:.85},
+      {e:"🧑‍🤝‍🧑", l:"和朋友、同事", d:"需要各自说明回国安排", s:.8},
+      {e:"🧍", l:"独自一人", d:"动机更依赖材料支撑", s:.65}
+    ]},
+  { cat:"回国约束", w:12,
+    t:"在国内，有什么是「必须回来」的理由？",
+    h:"这是拒签的头号原因，比存款重要得多。",
+    o:[
+      {e:"🏠", l:"房产在自己名下，还有房贷要还", d:"房子是最硬的约束", s:1},
+      {e:"👨‍👩‍👦", l:"配偶和子女都在国内", d:"家庭是最直接的理由", s:.95},
+      {e:"📄", l:"有长期劳动合同，工作稳定", d:"有明确的返岗日期", s:.9},
+      {e:"🎓", l:"学业还没完成，要回去上课", d:"有具体的时间点", s:.75},
+      {e:"🪁", l:"说实话，没有太强的牵挂", d:"这是最危险的一档", s:.15}
+    ]},
+  { cat:"回国动机", w:10,
+    t:"如果签证官当面问你：为什么一定会回国？",
+    h:"这一题，你在心里回答的声音，够不够硬。",
+    o:[
+      {e:"🏡", l:"工作、房子、家人孩子都在这", d:"理由多、可验证", s:1},
+      {e:"📈", l:"事业正在上升期，走不开", d:"有具体事业节点", s:.85},
+      {e:"🎒", l:"就是去玩一趟，玩完就回", d:"说得清但证据少", s:.55},
+      {e:"😶", l:"我可能答不上来", d:"那么签证官也不会信", s:.1}
+    ]},
+  { cat:"出入境记录", w:8,
+    t:"近五年，你去过哪些国家？",
+    h:"签证官会看：你去过的地方，有没有按时回来。",
+    o:[
+      {e:"🌍", l:"欧美澳新，都按期回国", d:"记录本身就是信用", s:1},
+      {e:"🛫", l:"日韩、新加坡等", d:"有良好出入境痕迹", s:.85},
+      {e:"🏝", l:"只去过东南亚 / 港澳", d:"参考价值有限", s:.6},
+      {e:"📄", l:"护照基本是空白", d:"没有任何记录可参考", s:.3}
+    ]},
+  { cat:"接待方", w:5,
+    t:"在澳洲那边，有人接待你吗？",
+    h:"接待人的身份，会直接牵动对你动机的判断。",
+    o:[
+      {e:"👵", l:"有直系亲属（公民 / PR）", d:"关系清楚，邀请函齐全", s:1},
+      {e:"🧑", l:"有持合法签证的朋友 / 同学", d:"需要住宿与关系证明", s:.7},
+      {e:"🏨", l:"没有接待人，全程住酒店", d:"行程自洽即可", s:.8},
+      {e:"❓", l:"有人接，但身份说不清", d:"这是典型风险点", s:.15}
+    ]},
+  { cat:"拒签史", w:9,
+    t:"你被澳洲或其他国家拒签过吗？",
+    h:"拒签记录会留在系统里，重新申请时看得到。",
+    o:[
+      {e:"🟢", l:"从未被拒签", d:"记录清白", s:1},
+      {e:"🟡", l:"被拒过，已过去两年以上", d:"需说明原因与变化", s:.6},
+      {e:"🟠", l:"近两年内被拒过", d:"重递需先解决原因", s:.3}
+    ]},
+  { cat:"逾期遣返", w:6,
+    t:"有没有逾期滞留或被遣返的记录？",
+    h:"这类记录的影响会持续好几年，不能漏填。",
+    o:[
+      {e:"✅", l:"没有", d:"出入境记录干净", s:1},
+      {e:"🔴", l:"有过", d:"必须申报并说明处理结果", s:0}
+    ]},
+  { cat:"材料一致性", w:8,
+    t:"工作证明、银行流水、社保个税，对得上吗？",
+    h:"三份材料互相打架，是最常见的拒签理由。",
+    o:[
+      {e:"🧩", l:"完全对得上，都是真实材料", d:"经得起交叉核对", s:1},
+      {e:"🔍", l:"大体一致，个别地方需要补说明", d:"可解释", s:.7},
+      {e:"📦", l:"交给中介「包装」出一套", d:"一旦核对就露馅", s:.2},
+      {e:"❔", l:"我也不太清楚自己材料齐不齐", d:"先自查再递", s:.35}
+    ]},
+  { cat:"健康状况", w:5,
+    t:"有没有需要向签证官申报的健康状况？",
+    h:"中国属于肺结核高风险国家：停留满 6 个月、或 75 岁以上申请 600，都会被要求体检和胸片。",
+    o:[
+      {e:"💚", l:"没有，身体一直正常", d:"不涉及申报", s:1},
+      {e:"🗂", l:"以前得过结核或其他病，已经治愈", d:"有完整病历能说明", s:.7},
+      {e:"💊", l:"正在治疗，或近期检查有异常", d:"可能不满足健康要求", s:.2},
+      {e:"🩺", l:"不确定，很久没体检了", d:"没查过就没有底", s:.5}
+    ]},
+  { cat:"犯罪记录", w:4,
+    t:"有没有犯罪记录或行政违法记录？",
+    h:"轻微记录一般不影响，但必须如实申报。",
+    o:[
+      {e:"✅", l:"没有", d:"记录干净", s:1},
+      {e:"📋", l:"有过轻微违法或行政记录", d:"需如实申报", s:.45},
+      {e:"🤷", l:"没查过，不知道自己有没有记录", d:"指的是无犯罪记录证明", s:.5}
+    ]}
+];
+
+const MAX = QUESTIONS.reduce((a,q)=>a+q.w,0);
+let answers = new Array(QUESTIONS.length).fill(null);
+let idx = 0;
+const $ = id => document.getElementById(id);
+
+function begin(){
+  $("home").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  idx = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  render();
+  window.scrollTo({top:0});
+}
+
+/* 学生不需要回答「工作关系」这一题，直接跳过 */
+function skipQ(i){ return i===6 && answers[3]===4; }
+function visList(){ return QUESTIONS.map((q,i)=>i).filter(i=>!skipQ(i)); }
+
+function render(){
+  const q = QUESTIONS[idx];
+  const vis = visList();
+  const pos = vis.indexOf(idx);
+  $("qidx").textContent = "Q" + (pos+1) + " / " + vis.length;
+  $("qcat").textContent = q.cat;
+  $("prog").style.width = ((pos+1)/vis.length*100).toFixed(1)+"%";
+  $("qt").textContent = q.t;
+
+  const box = $("opts");
+  box.innerHTML = "";
+  q.o.forEach((o,i)=>{
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[idx]===i ? " sel" : "");
+    b.innerHTML = '<span class="e">'+o.e+'</span><span class="tx">'+o.l+'</span>';
+    b.onclick = ()=>{
+      answers[idx] = i;
+      Array.prototype.forEach.call(box.children, c=>c.classList.remove("sel"));
+      b.classList.add("sel");
+      $("nextBtn").disabled = false;
+      setTimeout(()=>{ if(answers[idx]===i) next(); }, 260);
+    };
+    box.appendChild(b);
+  });
+  $("nextBtn").disabled = answers[idx]===null;
+  $("nextBtn").textContent = pos===vis.length-1 ? "看结果　→" : "下一题　→";
+  $("quiz").classList.remove("scale");
+  void $("quiz").offsetWidth;
+  $("quiz").classList.add("scale");
+}
+
+function next(){
+  if(answers[idx]===null) return;
+  const vis = visList();
+  const pos = vis.indexOf(idx);
+  if(pos >= 0 && pos < vis.length-1){ idx = vis[pos+1]; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else report();
+}
+function prev(){
+  const vis = visList();
+  const pos = vis.indexOf(idx);
+  if(pos > 0){ idx = vis[pos-1]; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else { $("quiz").classList.add("hidden"); $("home").classList.remove("hidden"); }
+}
+
+function score(){
+  let got = 0, den = 0;
+  QUESTIONS.forEach((q,i)=>{
+    const a = answers[i]; if(a===null) return;
+    const s = q.o[a].s; if(s===null) return;
+    den += q.w; got += q.w * s;
+  });
+  const raw = den ? got / den : 0;
+  const pct = Math.round(24 + raw*73);
+  const dims = { "回国约束力":{got:0,max:0}, "资金与收入":{got:0,max:0}, "记录与诚信":{got:0,max:0} };
+  const map = { "回国约束":"回国约束力", "回国动机":"回国约束力", "年龄":"回国约束力", "婚姻":"回国约束力", "子女":"回国约束力", "资产":"回国约束力",
+                "月收入":"资金与收入", "资金能力":"资金与收入", "工资发放":"资金与收入", "身份":"资金与收入",
+                "出入境记录":"记录与诚信", "拒签史":"记录与诚信", "逾期遣返":"记录与诚信", "材料一致性":"记录与诚信", "在职真实性":"记录与诚信" };
+  QUESTIONS.forEach((q,i)=>{
+    const key = map[q.cat]; if(!key) return;
+    const a = answers[i]; if(a===null) return;
+    const s = q.o[a].s; if(s===null) return;
+    dims[key].got += q.w * s;
+    dims[key].max += q.w;
+  });
+  return {pct, raw, dims};
+}
+
+/* ---- 六维雷达 ---- */
+function radarAxes(){
+  const groups=[
+    {k:"目的与行程", cats:["出行目的","行程计划","接待方","同行人"]},
+    {k:"资金收入",   cats:["资金能力","月收入","工资发放","身份"]},
+    {k:"回国约束",   cats:["回国约束","回国动机","年龄","婚姻","子女","资产"]},
+    {k:"出入境记录", cats:["出入境记录"]},
+    {k:"材料可信度",   cats:["材料一致性","在职真实性"]},
+    {k:"身份合规性",   cats:["拒签史","逾期遣返","健康状况","犯罪记录"]}
+  ];
+  return groups.map(g=>{
+    let got=0,max=0;
+    QUESTIONS.forEach((q,i)=>{
+      if(g.cats.indexOf(q.cat)<0) return;
+      const a=answers[i];
+      if(a!==null && q.o[a].s!==null){ max+=q.w; got+=q.w*q.o[a].s; }
+      else if(a===null){ max+=q.w; }
+    });
+    return {k:g.k, v: max?Math.round(got/max*100):0};
+  });
+}
+/* 平均申请人基准：按各维度分别取值，不是一条 60 分的同心圈 */
+const AVG_AXES = { "目的与行程":80, "资金收入":72, "回国约束":78, "出入境记录":55, "材料可信度":82, "身份合规性":95 };
+
+function radarSVG(data, base){
+  const N=data.length, cx=186, cy=150, R=90;
+  let s='';
+  for(let g=1;g<=4;g++){
+    const r=R*g/4, pts=[];
+    for(let i=0;i<N;i++){ const a=-Math.PI/2+i*2*Math.PI/N;
+      pts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1)); }
+    s+='<polygon points="'+pts.join(' ')+'" fill="'+(g===1?'rgba(255,198,92,.055)':'none')+
+       '" stroke="rgba(255,255,255,'+(g===4?.20:.075)+')"/>';
+  }
+  for(let i=0;i<N;i++){ const a=-Math.PI/2+i*2*Math.PI/N;
+    s+='<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+R*Math.cos(a)).toFixed(1)+'" y2="'+(cy+R*Math.sin(a)).toFixed(1)+
+       '" stroke="rgba(255,255,255,.09)"/>';
+  }
+  /* 平均申请人基准线：每个维度各一个值 */
+  if(base){
+    const avgPts=[];
+    for(let i=0;i<N;i++){ const a=-Math.PI/2+i*2*Math.PI/N, r=R*Math.max(base[i].v,4)/100;
+      avgPts.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1)); }
+    s+='<polygon points="'+avgPts.join(' ')+'" fill="none" stroke="rgba(160,176,198,.9)" stroke-width="1.3" stroke-dasharray="5 4"/>';
+  }
+  const pts=data.map((d,i)=>{ const a=-Math.PI/2+i*2*Math.PI/N, r=R*Math.max(d.v,4)/100;
+    return [cx+r*Math.cos(a), cy+r*Math.sin(a)]; });
+  s+='<polygon points="'+pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')+
+     '" fill="url(#radarFill)" stroke="#FFC65C" stroke-width="1.7" stroke-linejoin="round"/>';
+  data.forEach((d,i)=>{
+    const a=-Math.PI/2+i*2*Math.PI/N;
+    s+='<circle cx="'+pts[i][0].toFixed(1)+'" cy="'+pts[i][1].toFixed(1)+'" r="3.2" fill="#FFD27A"/>';
+    const lr=R+19, lx=cx+lr*Math.cos(a), ly=cy+lr*Math.sin(a);
+    const cs=Math.cos(a), anchor=Math.abs(cs)<.25?'middle':(cs>0?'start':'end');
+    s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+1).toFixed(1)+'" text-anchor="'+anchor+
+       '" font-size="14.5" font-weight="800" fill="#A9B8CC">'+d.k+'</text>';
+    s+='<text x="'+lx.toFixed(1)+'" y="'+(ly+18).toFixed(1)+'" text-anchor="'+anchor+
+       '" font-size="13" font-weight="900" fill="#FFC65C">'+d.v+'</text>';
+  });
+  return '<svg class="radar" viewBox="0 0 372 306" preserveAspectRatio="xMidYMid meet">'+
+    '<defs><linearGradient id="radarFill" x1="0" y1="0" x2="0" y2="1">'+
+      '<stop offset="0%" stop-color="rgba(255,198,92,.34)"/>'+
+      '<stop offset="100%" stop-color="rgba(53,211,153,.24)"/></linearGradient></defs>'+s+'</svg>';
+}
+
+/* ---- 同龄人分位 ---- */
+function peerPct(pct){
+  const p = 100/(1+Math.exp(-(pct-58)/14));
+  return Math.max(3, Math.min(97, Math.round(p)));
+}
+
+const ZONES=[
+  {t:"极高",c:"#35D399",p:93},
+  {t:"较高",c:"#8FD373",p:77},
+  {t:"一般",c:"#FFC65C",p:63},
+  {t:"较低",c:"#FF9C57",p:47},
+  {t:"非常低",c:"#FF6B6B",p:20}
+];
+function tierIdx(pct){ return pct>=85?0:pct>=70?1:pct>=55?2:pct>=40?3:4; }
+
+function zoneLabels(pct){
+  const k=tierIdx(pct);
+  return ZONES.map((z,i)=>{
+    const a=(-90+z.p*3.6)*Math.PI/180, R=(i===k)?112:104;
+    const x=122+R*Math.cos(a), y=122+R*Math.sin(a);
+    return '<span class="zlab'+(i===k?' on':'')+'" style="left:'+x.toFixed(0)+'px;top:'+y.toFixed(0)+'px;color:'+z.c+'">'+z.t+'</span>';
+  }).join("");
+}
+
+function report(){
+  const res = score();
+  const TONES=[
+    {t:"极高",c:"#35D399",v:"条件极好，可以直接递签",
+      s:"未发现明显短板，材料完整度已达到直接递交的标准。递交前按顺序整理文件即可。"},
+    {t:"较高",c:"#8FD373",v:"条件很不错，可以递签",
+      s:"整体达到可递交标准，仅存一两处轻微弱项。处理后可进一步提升稳定性。"},
+    {t:"一般",c:"#FFC65C",v:"建议优化材料，通过更稳",
+      s:"当前材料可以提交，但存在数处会引发审核追问的细节，建议先行处理。"},
+    {t:"较低",c:"#FF9C57",v:"目前递交，通过的可能性偏低",
+      s:"按现有材料递交，被拒概率偏高，问题集中在关键条件上。"},
+    {t:"非常低",c:"#FF6B6B",v:"现有条件拒签极高",
+      s:"按现有条件递交，被拒概率极高，并会留下一次拒签记录。"}
+  ];
+  let pct = res.pct;
+  const adv = buildAdvice(pct);
+  /* 一致性：风险等级决定上限，避免出现「极高 + 一堆高风险」 */
+  if(answers[6]===4 || answers[18]===1 || answers[19]===2) pct = Math.min(pct, 38);
+  else {
+    const highN = adv.filter(a=>a.lv.t==="高风险").length;
+    const midN  = adv.filter(a=>a.lv.t==="中风险").length;
+    if(highN) pct = Math.min(pct, 54);
+    else if(midN >= 2) pct = Math.min(pct, 69);
+    else if(midN === 1) pct = Math.min(pct, 84);
+  }
+  const tone = TONES[tierIdx(pct)];
+  const tops = adv.filter(a=>a.lv.t!=="小提示").map(a=>a.b);
+  if(tops.length){
+    if(tone.t==="较高") tone.s = "整体达到可递交标准。存在一处弱项「"+tops[0]+"」，可补充材料或在解释信中说明。";
+    else if(tone.t==="一般" && tops.length>=2) tone.s = "当前材料可以提交。存在两处会引发追问的问题，「"+tops[0]+"」和「"+tops[1]+"」，建议先行处理。";
+    else if(tone.t==="一般") tone.s = "当前材料可以提交。存在一处会引发追问的问题「"+tops[0]+"」，建议先行处理。";
+    else if(tone.t==="较低") tone.s = "按现有材料递交，被拒概率偏高。主要问题「"+tops[0]+"」，属于条件本身，补充材料无法覆盖。";
+    else if(tone.t==="非常低") tone.s = "按现有条件递交，被拒概率极高，并会留下拒签记录。主要问题「"+tops[0]+"」，建议先处理再递交。";
+  }
+  const good = buildStrengths();
+  const peer = peerPct(pct);
+  const flag = document.querySelector('#home .flag img').getAttribute('src');
+  const tagCls = t => t==="高风险"?"h":t==="中风险"?"m":"l";
+  const allAdv = buildAdvice(pct, 99).filter(a=>a.lv.t!=="小提示");
+  const letters = buildLetter(allAdv);
+  const letterHTML = letters.length ? (
+    '<div class="lettercard">'+
+      '<div class="acch"><div class="acico lc">✉</div><h3>解释信建议</h3><span class="len">cover letter</span><span class="lchip need">需要 '+letters.length+' 条</span></div>'+
+      '<p class="lsub">一页 A4、英文、开头一句写清这次申请的目的，然后按下面顺序逐条回应。写具体的事，不要只写「我会按时回国」。</p>'+
+      '<ul class="llist">'+ letters.slice(0,6).map(x=>'<li><b>'+x.t+'</b><span>'+x.h+'</span></li>').join("") +'</ul>'+
+      (letters.length>6 ? '<p class="lmore">另有 '+(letters.length-6)+' 处需要说明，见上面风险项</p>' : '')+
+    '</div>'
+  ) : (
+    '<div class="lettercard ok">'+
+      '<div class="acch"><div class="acico lc">✉</div><h3>解释信建议</h3><span class="len">cover letter</span><span class="lchip no">不需要</span></div>'+
+      '<p class="lsub">你的材料基本能自己说明情况，这次不用额外写解释信。以后补了新证据或行程有调整，附两三句说明就够。</p>'+
+    '</div>'
+  );
+  const goodHTML = good.length ? (
+    '<div class="procard">'+
+      '<div class="acch">'+
+        '<div class="acico ok">✓</div>'+
+        '<h3>发现 <b>'+good.length+'</b> 项优势</h3>'+
+      '</div>'+
+      '<p class="accsub">这些是撑住这次申请的地方</p>'+
+      '<div class="probox">'+ good.map(g=>'<span class="pch"><i>✓</i>'+g+'</span>').join("") +'</div>'+
+    '</div>') : '';
+
+  $("quiz").classList.add("hidden");
+  const r = $("report");
+  r.classList.remove("hidden");
+  r.innerHTML =
+    '<div class="top"><div class="brand"><span class="mark">过</span>过签率</div>'+
+      '<span class="pill">评估结果</span></div>'+
+    '<div class="rtitle"><div class="rtitle-one">'+
+      '<span class="rtitle-k">您的</span>'+
+      '<img class="rtitle-flag" alt="澳大利亚国旗" src="'+flag+'">'+
+      '<span class="rtitle-label">签证通过率</span>'+
+    '</div></div>'+
+    '<div class="gauge">'+
+      '<div class="ring" id="ring"><div class="in">'+
+        '<div class="num" id="num">0<span>%</span></div><div class="lbl">下签概率</div></div></div>'+
+      zoneLabels(pct)+
+    '</div>'+
+    '<div class="peerbox">'+
+      '<p class="peerline">你的过签率超过了 <b>'+peer+'%</b> 的同龄人</p>'+
+    '</div>'+
+    '<h2 class="verdict" style="color:'+tone.c+'">您的过签率'+tone.t+' · '+tone.v+'</h2>'+
+    '<p class="vsub">'+tone.s+'</p>'+
+    goodHTML+
+    '<div class="card"><div class="acch"><div class="acico rd">📡</div><h3>六维签证画像</h3></div>'+radarSVG(radarAxes(), radarAxes().map(a=>({k:a.k, v: (AVG_AXES[a.k]||60)})))+
+      '<div class="rlegend"><span><i class="lsolid"></i>你的画像</span><span><i class="ldash"></i>平均申请人</span></div></div>'+
+    '<div class="riskcard">'+
+      '<div class="acch">'+
+        '<div class="acico rk">🚨</div>'+
+        '<h3>'+(function(){
+          const n = adv.filter(a=>a.lv.t==="高风险"||a.lv.t==="中风险").length;
+          return n ? '检测到 <b>'+n+'</b> 个风险项' : '未发现明显的风险项';
+        })()+'</h3>'+
+        '<span class="riskcta">怎么处理</span>'+
+      '</div>'+
+      adv.map(a=>'<div class="rk"><div class="rkico">'+a.e+'</div><div class="rkbody">'+
+        '<div class="rkrow"><b>'+a.b+'</b>'+ (function(){
+          if(a.lv.t==="小提示") return '<span class="rkact ok">顺手做</span>';
+          const m = ACT_LABEL[RISK_ACT[a.q+"-"+a.o]];
+          return m ? '<span class="rkact '+m[1]+'">'+m[0]+'</span>' : '';
+        })() +'</div>'+
+        '<span class="rktag '+tagCls(a.lv.t)+'">'+a.lv.t+'</span>'+
+        '<p>'+a.p+'</p></div></div>').join("")+
+    '</div>'+
+    letterHTML+
+    '<div class="share"><button class="btn" onclick="restart()">再测一次</button>'+
+      '<button class="ghost" onclick="copyResult('+pct+', this)">复制结果</button></div>'+
+    '<div class="foot">过签率 · VISA CHECK</div>';
+
+  /* 结果页四个模块默认收起，点标题展开 */
+  try{(function(){
+    [".procard",".lettercard",".riskcard","div.card"].forEach(function(sel){
+      const card=r.querySelector(sel); if(!card) return;
+      const head=card.querySelector(".acch"); if(!head) return;
+      const body=document.createElement("div"); body.className="acc-body";
+      let n=head.nextSibling;
+      while(n){ const nx=n.nextSibling; body.appendChild(n); n=nx; }
+      card.appendChild(body); card.classList.add("acc");
+      const chev=document.createElement("span"); chev.className="chev"; chev.textContent="\u25BE";
+      head.appendChild(chev);
+      head.addEventListener("click",function(){ card.classList.toggle("open"); });
+    });
+  })();}catch(e){}
+
+  r.classList.add("scale");
+  animateGauge(pct, tone.c);
+  window.scrollTo({top:0});
+}
+
+/* 风险项：一条规则只对应用户亲手选下的那一个选项，不按分类均分反推 */
+const RISK_RULES = [
+  /* 0 年龄 */
+  {q:0, o:0, e:"🧑", b:"年龄偏轻，积累还不够", p:"这个阶段通常没有稳定工作和资产，签证官会更依赖家庭材料。父母的资金担保、在读证明或在职证明要一起交，结论才会不同。"},
+  /* 1 婚姻 */
+  {q:0, o:6, e:"🦳", b:"75 岁以上，体检和保险都绕不开", p:"75 岁以上申请 600，无论停留多久都要体检和肾功能检查，签证官还会看是否买得起旅行保险。先把体检和保险安排进去，比递了再补快。"},
+  {q:1, o:1, e:"🧍", b:"未婚，家庭约束偏弱", p:"没有配偶这一层关系，回国的理由会更依赖工作和房产。用在职证明写明返岗日期、长期租房合同、父母关系材料，把「在国内有生活」补实。"},
+  /* 3 身份 */
+  {q:3, o:5, e:"🛋", b:"没有在职身份", p:"没有工作和收入，最硬的「必须回去」就缺了一块。若有配偶或父母的收入与资产，要说明你由谁供养、为什么一定会回来。"},
+  /* 4 月收入 */
+  {q:4, o:4, e:"⚠️", b:"收入撑不起这趟行程", p:"两三周的住宿和交通通常在几万元。收入和存款对不上时，会被怀疑是借钱或透支出行。要么缩短行程，要么补足资金证明。"},
+  {q:4, o:3, e:"🧾", b:"收入偏紧，要靠存款补", p:"按月收入算，这趟行程会花掉几个月工资。存款余额、出资人说明、行程预算表要能对得上，否则资金这一项很难通过。"},
+  /* 5 工资发放 */
+  {q:5, o:4, e:"💵", b:"工资发现金，流水里看不见", p:"现金发薪等于没有收入证明。能让公司改走公账最好；改不了，就用个税记录、劳动合同、工资签收单一起补，并附单位说明。"},
+  {q:5, o:3, e:"📱", b:"工资走微信或支付宝", p:"微信、支付宝流水能打出来，但对方是谁、是不是工资，很难说清。最好附公司说明和个税记录，把这条链路补上。"},
+  {q:5, o:2, e:"💸", b:"工资由私人账户代发", p:"私人账户代发，流水上只是个人转账。需要公司出具代发说明，再配社保或个税佐证，否则收入无法计入。"},
+  /* 6 在职真实性 */
+  {q:6, o:4, e:"🪢", b:"工作关系是挂靠的", p:"挂靠开出的在职证明，社保和发薪日期一查就对不上。被认定材料不实，后果比条件不足严重得多，还会影响之后的申请。"},
+  {q:6, o:3, e:"🕓", b:"工作证明是离职后补开的", p:"时间线和社保记录对不上，很容易被追问。要么等重新入职、社保恢复后再申请，要么如实说明现在靠什么收入生活。"},
+  {q:6, o:2, e:"🧑‍💻", b:"自由职业，收入需要自证", p:"没有固定雇主时，签证官看的是合同、发票、平台结算和纳税记录。连续几个月的进账，比一份合作证明有力。"},
+  {q:6, o:1, e:"📎", b:"工作是真的，但缺凭证", p:"社保或工资走现金，等于只有一张证明。补上劳动合同、个税记录、工资签收单，这段工作经历才立得住。"},
+  /* 7 资产 */
+  {q:7, o:4, e:"🤝", b:"名下没有资产，靠家人支持", p:"资产在家人名下，本身补不到你名下。如实说明这些资产和你共同使用，再附上亲属关系与出资来源，比硬塞一份证明可信。"},
+  {q:7, o:3, e:"🏦", b:"资产只有存款", p:"存款是最容易被调用的钱，房产和车更能说明你在这边有根基。有房或车的话，把证件一并附上。"},
+  /* 8 资金能力 */
+  {q:8, o:3, e:"💰", b:"流水像临时凑的", p:"递交前一两个月突然存入一大笔，来源又说不清，最容易被当成临时凑钱。存款要有 3–6 个月的记录，大额进出要附来源说明。"},
+  {q:8, o:2, e:"🤝", b:"钱主要是家人出的", p:"钱不在你名下，这一项补不回来。能做的是把来源说清楚：谁出的、为什么出、和你是什么关系，再附上出资人的流水。只放一张转账截图，反而像临时凑的。"},
+  /* 9 出行目的 */
+  {q:9, o:3, e:"🌏", b:"出行目的没说清", p:"「随便转转」「还没想好」撑不起一次访客签申请。目的要具体到城市、日期、要办的事，并能和机票、住宿订单对上。"},
+  /* 10 停留时长 */
+  {q:10, o:2, e:"📆", b:"打算停留 1–3 个月", p:"这个时长明显长过普通假期。要在在职证明里写清假期长度，或说明这段时间的收入从哪里来。"},
+  {q:10, o:3, e:"⏳", b:"打算停留 3 个月以上", p:"申请三个月以上，必须有具体理由，例如长期陪护、长线自驾；同时要说明这段时间不用上班、资金怎么覆盖。"},
+  /* 11 行程细化 */
+  {q:11, o:3, e:"❓", b:"行程还没定", p:"至少先定下第一晚住哪、城市之间怎么走、哪天返程。住宿和返程都空着，整份行程很难被当成真的。"},
+  {q:11, o:1, e:"✈️", b:"只订了机票，行程还是粗的", p:"机票只能证明你会去，证明不了你会回。补上每晚住宿订单和返程航班，几份材料才能互相印证。"},
+  /* 12 同行人 */
+  {q:12, o:5, e:"🧍", b:"独自出行，动机要更多材料支撑", p:"一个人去、又没有接待人时，签证官会更在意你为什么要去、为什么会回。把行程目的和国内的牵绊写具体。"},
+  /* 13 回国约束 */
+  {q:13, o:4, e:"🪁", b:"没有必须回国的理由", p:"这是拒签里最常见的一条。要拿出能查的东西：在职证明写明请假和返岗日期、房产或租房合同、配偶子女的亲属关系证明。"},
+  /* 14 回国动机 */
+  {q:14, o:3, e:"😶", b:"说不出为什么一定回国", p:"这题答不上来，签证官也不会信。先把工作、房子、家人里最硬的一条写成一句话，再找材料支撑它。"},
+  {q:14, o:2, e:"🎒", b:"回国的理由只有「玩完就回」", p:"这个说法成立，但要有证据：返程机票、在职证明上的返岗日期、家里等你照顾的人。只有一句「会回」，等于没说。"},
+  /* 15 出入境记录 */
+  {q:15, o:3, e:"📄", b:"护照上没有出境记录", p:"没有出境记录，签证官只能靠材料判断你会不会按时回来。可以先走一趟短期出行、按期回国，为下次申请留一条记录。"},
+  {q:15, o:2, e:"🏝", b:"出境记录只有东南亚或港澳", p:"这类记录参考价值有限。如果还有日本、韩国、新加坡的记录，一并交上去，可信度会明显不同。"},
+  /* 16 接待方 */
+  {q:16, o:3, e:"❓", b:"接待你的人身份说不清", p:"对方身份说不清，签证官会怀疑这趟行程的真实目的。需要对方的护照或签证、住址证明、邀请函和你们的关系说明。"},
+  {q:16, o:1, e:"🧑", b:"接待人是朋友或同学", p:"朋友接待要备齐邀请函、对方在澳合法身份的证明、住址证明、关系说明。四样缺一样，都会变成新的疑点。"},
+  /* 17 拒签史 */
+  {q:17, o:2, e:"🟠", b:"近两年内被拒签过", p:"这条记录签证官看得到。这次的材料如果看不出上次的问题已经解决，很可能按原来的结论再拒一次。要针对上次被质疑的那一点，用新材料逐条回应，并在说明信开头直接讲明。"},
+  {q:17, o:1, e:"🟡", b:"两年前被拒签过", p:"时间够长，记录仍在。申请时主动说明上次被拒的原因，以及这两年条件变了什么（工作、收入、家庭），比不提更稳妥。"},
+  /* 18 逾期遣返 */
+  {q:18, o:1, e:"🔴", b:"有过逾期滞留或被遣返", p:"这类记录会影响好几年。必须如实申报，并附上当时的处理结果和之后按时出入境的记录；隐瞒比记录本身后果更重。"},
+  /* 19 材料一致性 */
+  {q:19, o:2, e:"📦", b:"材料是中介「包装」的", p:"包装出来的材料经不起对照：入职时间、社保起始月、发薪日一碰就露。被认定材料不实，比条件不够严重得多。"},
+  {q:19, o:3, e:"❔", b:"不确定材料齐不齐", p:"先按官方清单自查一遍：身份、资金、工作、行程四类是不是都有原件和翻译件。缺哪项现在补还来得及，递上去再补就晚了。"},
+  {q:19, o:1, e:"🔍", b:"个别材料对不上", p:"在职证明的入职时间、社保起始月份、流水里的发薪日，三处应该能互相咬合。差一点就补一份说明，别留到被追问。"},
+  /* 21 犯罪记录 */
+  {q:20, o:3, e:"🩺", b:"很久没体检，健康情况没底", p:"停留满 6 个月或 75 岁以上本来就要体检。提前去指定医院做一次，比等领馆下体检信再排队省时间，也能早点知道胸片有没有问题。"},
+  {q:20, o:2, e:"💊", b:"正在治疗，或检查有异常", p:"这一项不是补材料能过去的。先看是否属于会影响公共健康的状况，能治疗稳定就先稳定再申请；隐瞒病史被查出，比晚几个月递交麻烦得多。"},
+  {q:20, o:1, e:"🗂", b:"有既往病史，体检会加做复查", p:"中国是结核高风险国家，申报既往结核史后通常会被要求胸片，异常时还要痰检。治愈记录、出院小结、最近的复查报告带齐，说明现在不具传染性。"},
+  {q:21, o:1, e:"📋", b:"有过违法或行政记录", p:"这类记录要在申请表里如实填。轻微记录一般不影响访客签，但瞒着不填被查到，后果比记录本身重。"},
+  {q:21, o:2, e:"🤷", b:"无犯罪记录没核实过", p:"这里指的是无犯罪记录证明：很多人没查过就在表上填了「无」。先开一份（户籍地派出所或线上政务平台都能办），按实际结果申报；没查清就填，风险在你自己身上。"}
+];
+
+/* 处理方式：补=能补材料，说=只能写进说明信，改=要先改条件，空=材料补不回来 */
+const RISK_ACT = {
+  "0-0":"说","0-6":"补","1-1":"说","3-5":"改","4-4":"改","4-3":"补",
+  "5-4":"补","5-3":"补","5-2":"补","6-1":"补","6-2":"补","6-3":"","6-4":"",
+  "7-4":"说","7-3":"补","8-3":"说","8-2":"说",
+  "9-3":"补","10-2":"说","10-3":"说","11-3":"补","11-1":"补",
+  "12-5":"说","13-4":"","14-3":"","14-2":"说",
+  "15-3":"","15-2":"","16-3":"补","16-1":"补",
+  "17-2":"说","17-1":"说","18-1":"","19-2":"","19-3":"补","19-1":"补",
+  "20-1":"补","20-2":"","20-3":"补","21-1":"说","21-2":"补"
+};
+const ACT_LABEL = {"补":["先补这项","b"],"说":["写进说明信","t"],"改":["先改条件","g"]};
+
+/* 解释信：一条对应一个问题，说明要写什么、大概怎么落笔 */
+const LETTER_MAP = {
+  "0-0":["年龄与积累","说明这个年龄的收入来源和这趟行程的预算，为什么这次旅行对你是合理的，而不是临时起意"],
+  "0-6":["年龄与体检","75 岁以上要体检和肾功能，保险覆盖全程；说明身体能支撑这趟行程，有随行安排"],
+  "1-1":["没有配偶的牵挂","写清国内的生活结构：工作、父母、房子、长期合同，证明你有稳定生活在等着你回来"],
+  "3-5":["目前的收入来源","说明现在靠什么生活、由谁供养，以及为什么在这种情况下仍会按期回国"],
+  "4-4":["收入与行程花费","直接算一遍账：月收入多少、行程预算多少、花完之后还剩多少，让数字自己对得上"],
+  "4-3":["收入与存款的配比","说明存款怎么补足这趟行程，以及旅行支出不会影响国内正常生活"],
+  "5-4":["现金发薪","说明为什么走现金，再补能核对的替代凭证：个税、劳动合同、工资签收单、单位证明"],
+  "5-3":["微信或支付宝发薪","说明收入形式，附平台流水、经营记录或单位说明，把「有工作」这件事落到可核对的记录上"],
+  "5-2":["私人账户代发","说明代发原因，附劳动合同和单位出具的说明，避免看起来像没有正式雇佣关系"],
+  "6-1":["工作缺凭证","承认凭证不全，用劳动合同、社保、个税、同事或主管证明把这段经历补完整"],
+  "6-2":["自由职业的收入","说明业务模式、客户来源、近半年的合同与结算，让收入曲线看起来是连续的"],
+  "6-3":["离职与现状","写清离职时间、目前靠什么收入、为什么现在出行，不要沿用原公司的在职证明"],
+  "6-4":["工作关系的真实性","如实说明真实的雇佣或合作关系；如果用挂靠材料，这一条解释不了，建议重新准备材料"],
+  "7-4":["资产归属","说明房车存款在谁名下、你和这些资产的关系、共同使用情况，别硬说成自己的"],
+  "7-3":["资产结构单薄","说明只有存款的原因，附上存款历史与家庭支持，别临时拼资产证明"],
+  "8-3":["大额资金的来源","说明这笔钱从哪来：工资结余、卖房卖车、家人赠与，并给出能对上的时间线"],
+  "8-2":["家人出资","说明谁出资、为什么出资、和你什么关系，附出资人流水与亲属关系证明"],
+  "9-3":["出行目的","把目的写成具体计划：去哪几个城市、看什么、为什么选这个时间，而不是「随便转转」"],
+  "10-2":["较长的停留","说明为什么需要一到三个月：假期额度、远程工作安排、返岗日期，都要有依据"],
+  "10-3":["超过三个月的停留","三个月以上会被当成变相居住。说清经济来源、国内的牵挂和明确的离境日期"],
+  "11-3":["行程未定","至少给出机票日期、前几晚住宿和每天大致安排，空白行程最难解释"],
+  "11-1":["行程太粗","把机票、酒店、城市之间的移动写具体，让签证官能看出这是一次真实的旅行"],
+  "12-5":["独自出行","说明为什么一个人去、家人是否知情、回国后有哪些具体安排"],
+  "13-4":["回国的理由","这是最难写的一条。落到具体的事：返岗日期、孩子开学、房贷、父母照顾，别写「我会回来」"],
+  "14-3":["回国动机说不清","先把自己为什么一定回来想清楚，再写成三条以内的具体理由，不要套模板"],
+  "14-2":["「玩完就回」太轻","把「回来」落到日程上：哪一天返岗、哪件事必须本人到场、机票为什么是往返"],
+  "15-3":["护照没有出境记录","没有记录就用别的证据补：稳定工作、房产、家庭；再说明这次为什么选澳洲"],
+  "15-2":["只有东南亚或港澳记录","说明这些行程都按期回国，附出入境章或机票，把守约记录摆出来"],
+  "16-3":["接待人身份不清","写清接待人是谁、什么身份、什么签证、和你什么关系、你住哪"],
+  "16-1":["住在朋友或同学家","附邀请函、对方的签证或居留证明、住址，并说明这段关系怎么来的"],
+  "17-2":["近两年被拒签","逐条回应上次被质疑的点：这次多了什么新证据、有什么变化，别只写「情况已改变」"],
+  "17-1":["两年前被拒签","说明上次被拒的原因、这两年有哪些变化（工作、资产、出境记录），并附对应材料"],
+  "18-1":["逾期或遣返记录","如实说明当时的情况、之后有没有再入境、现在的约束；这一条解释不清就不要急着递"],
+  "19-2":["材料被中介包装","说明哪些是包装的、哪些是真实的；这份材料很难靠解释挽救，建议按真实情况重做一套"],
+  "19-3":["材料是否齐全不确定","列一份清单，逐项打勾：在职、收入、资产、行程、关系证明，缺哪一项写哪一项"],
+  "19-1":["个别材料对不上","把每一处不一致列出来：日期、金额、单位名称，逐条说明原因和以哪份为准"],
+  "20-1":["既往病史","说明什么时候得过、是否治愈、现在是否具传染性，附出院小结和最近复查"],
+  "20-2":["正在治疗","说明病情、治疗方案、对旅行的影响；这一条要先确认是否满足健康要求，解释信只是辅助"],
+  "20-3":["没做过体检","说明准备什么时候去指定医院体检，以及目前的健康状况，别等领馆下体检信才发现问题"],
+  "21-1":["违法或行政记录","写清时间、性质、处理结果、之后的表现，附结案或处罚完毕的证明"],
+  "21-2":["无犯罪记录","先自己去开无犯罪记录证明，再据实申报；不要在没查清的情况下填「无」"]
+};
+function buildLetter(adv){
+  const seen = {}, out = [];
+  adv.forEach(a=>{
+    const m = LETTER_MAP[a.q+"-"+a.o];
+    if(!m) return;
+    if(seen[m[0]]) return;
+    seen[m[0]] = 1;
+    out.push({q:a.q, t:m[0], h:m[1]});
+  });
+  out.sort((x,y)=>x.q-y.q);
+  return out;
+}
+
+function buildAdvice(pct, cap){
+  cap = cap || 3;
+  const list = [];
+  RISK_RULES.forEach(it=>{
+    if(answers[it.q] !== it.o || answers[it.q] === null) return;
+    const s = QUESTIONS[it.q].o[it.o].s;
+    const lv = s < .36 ? {t:"高风险", c:"#FF6B6B"}
+             : s < .72 ? {t:"中风险", c:"#FFC65C"}
+             : {t:"低风险", c:"#35D399"};
+    list.push({e:it.e, b:it.b, p:it.p, lv:lv, s:s, w:QUESTIONS[it.q].w, q:it.q, o:it.o});
+  });
+
+  const rank = {"高风险":0, "中风险":1, "低风险":2};
+  list.sort((a,b)=> rank[a.lv.t]-rank[b.lv.t] || b.w-a.w);
+
+  if(pct>=85)
+    list.push({e:"✅", lv:{t:"小提示", c:"#35D399"}, s:1, w:0,
+      b:"材料按顺序整理成一份", p:"首页放目录、按类别编号。材料齐全但翻找困难，核对时一样会扣印象。"});
+
+  return list.slice(0,cap);
+}
+
+/* ---- 优势项 ---- */
+function buildStrengths(){
+  const A = i => answers[i];
+  const list = [];
+  const add = (i, oi, t) => { if(A(i)===oi) list.push(t); };
+  add(0,2,"33–45 岁，事业与生活都在稳定期");
+  add(1,0,"已婚，生活重心明确");
+  add(2,0,"有未成年子女，回国理由具体");
+  if(A(6)!==3){
+    add(3,0,"稳定受雇在职");
+    add(3,1,"有自有企业并正常纳税");
+    add(3,2,"退休有退休金，收入稳定");
+    add(3,4,"在读学生，学业还没完成");
+  }
+  add(4,0,"月收入 3 万元以上");
+  add(4,1,"月收入 1.5–3 万元");
+  add(5,0,"工资走公账，有个税记录");
+  add(6,0,"社保记录齐全，经得起核对");
+  add(7,0,"房、车、存款都在名下");
+  add(7,1,"名下有房产");
+  add(7,2,"有车，也有存款");
+  add(8,0,"存款足以覆盖整趟行程");
+  add(10,0,"停留时间与假期匹配");
+  add(11,0,"机票、酒店、每日行程都已定好");
+  add(12,0,"配偶同行，行程动机自然");
+  add(12,1,"和孩子同行，出行理由具体");
+  add(12,2,"和父母同行");
+  add(13,0,"房产在自己名下，有房贷");
+  add(13,1,"配偶和子女都在国内");
+  add(13,2,"有长期劳动合同，返岗时间明确");
+  add(14,0,"事业、房子、家人都在国内");
+  add(14,1,"事业处于上升期，有具体节点");
+  add(15,0,"有欧美澳新出入境记录，且按期回国");
+  add(15,1,"有日韩新等出入境记录");
+  add(16,0,"有直系亲属在澳，邀请函齐全");
+  add(17,0,"从未被拒签");
+  add(18,0,"没有逾期滞留记录");
+  if(A(6)!==3) add(19,0,"几份材料之间能相互印证");
+  add(20,0,"没有需要申报的健康状况");
+  add(21,0,"没有犯罪与行政违法记录");
+  return list.slice(0,6);
+}
+
+function animateGauge(pct, color){
+  const ring=$("ring"), num=$("num");
+  const dur=1100, st=performance.now();
+  (function tick(now){
+    const p=Math.min(1,(now-st)/dur), e=1-Math.pow(1-p,3), v=Math.round(pct*e);
+    const deg=(v*3.6).toFixed(1);
+    if(ring) ring.style.background="conic-gradient(from -90deg,"+color+" 0deg,"+color+" "+deg+"deg,rgba(255,255,255,.07) "+deg+"deg)";
+    num.innerHTML=v+"<span>%</span>"; num.style.color=color;
+    if(p<1) requestAnimationFrame(tick);
+  })(st);
+}
+
+function restart(){
+  $("report").classList.add("hidden");
+  $("home").classList.remove("hidden");
+  answers = new Array(QUESTIONS.length).fill(null);
+  window.scrollTo({top:0});
+}
+
+function copyResult(pct, btn){
+  const text = "我在「过签率」测了澳洲签证：" + pct + "%，档位「" + ["极高","较高","一般","较低","非常低"][tierIdx(pct)] + "」。";
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>{
+      const old = btn.textContent; btn.textContent = "已复制 ✓";
+      setTimeout(()=>btn.textContent = old, 1600);
+    }, ()=>alert(text));
+  } else { alert(text); }
+}
+</script>
+</body>
+</html>
